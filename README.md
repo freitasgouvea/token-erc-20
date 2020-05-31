@@ -1,8 +1,8 @@
 # ERC20 Token
 
-## Erc-20
-
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and module pausable.
+
+### Erc-20
 
 ERC-20 is a standard interface for tokens. 
 
