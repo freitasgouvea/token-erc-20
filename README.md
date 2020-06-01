@@ -2,7 +2,7 @@
 
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and module pausable.
 
-### Erc-20
+## Erc-20
 
 ERC-20 is a standard interface for tokens. 
 
@@ -10,18 +10,48 @@ The following standard allows for the implementation of a standard API for token
 
 This standard provides basic functionality to transfer tokens, as well as allow tokens to be approved so they can be spent by another on-chain third party.E
 
-More Information about Solidity and ERC-20:
+More Information about Solidity Language and ERC-20 Standard:
 
 - [Solidity](https://solidity.readthedocs.io/en/v0.6.8/): `v0.6.8`
 - [ERC-20](https://eips.ethereum.org/EIPS/eip-20)
 
+## Erc-20 Methods
+
+### Constructor
+
+The `constructor` function set the `name`, `symbol`, `decimals` and `totalSupply` of the token.
+
+### Balance
+
+The view function `balanceOf` returns the account balance of account with address `_owner`.
+
+### Transfer and transferFrom
+
+The method `transfer` transfers '_value' amount of tokens to address '_to', and fire the 'Transfer' event.
+
+The method  `transferFrom` transfers '_value' amount of tokens from address '_from' to address '_to', and fire the 'Transfer' event.
+
+### Approve
+
+The method 'approve' allows '_spender' to withdraw from one account multiple times, up to the '_value' amount. 
+
+If this function is called again it overwrites the current allowance with '_value'.
+
+### Allowance
+
+The view function `allowance` returns the amount which address '_spender' is still allowed to withdraw from '_owner'.
+
 ### Mint And Burn
 
-The mint function creates amount tokens and assigns them to account, increasing the total supply.
+Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
-The burn function destroys amount tokens from account, reducing the total supply.
+The `mintTo` function creates `amount` tokens and assigns them to `account`, increasing the total supply.
 
-Only owner can mint or burn tokens in this case.
+The `burnFrom` function destroys `amount` tokens from `account`, reducing the total supply.
+
+Only owner can mintTo or burnTo tokens in this case.
+
+## Erc-20 Modules in this example
 
 ### Ownable
 
@@ -29,11 +59,11 @@ The Ownable module provides a basic access control mechanism, where there is an 
 
 This module is used through inheritance. 
 
-It will make available the modifier onlyOwner, which can be applied to your functions to restrict their use to the owner.
+It will make available the modifier `onlyOwner`, which can be applied to your functions to restrict their use to the owner.
 
 By default, the owner account will be the one that deploys the contract. 
 
-The owner can be changed with transferOwnership.
+The owner address can be changed with method `transferOwnership`.
 
 ### Pausable
 
@@ -41,9 +71,9 @@ Contract module which allows children to implement an emergency stop mechanism t
 
 This module is used through inheritance. 
 
-It will make available the modifiers whenNotPaused and whenPaused, which can be applied to the functions of your contract.
+It will make available the modifiers `whenNotPaused` and `whenPaused`, which can be applied to the functions of your contract.
 
-Only owner can trigger pause and unpause contract. 
+Only owner can trigger call `pause` and `unpause` methods. 
 
 ## Requeriments
 
