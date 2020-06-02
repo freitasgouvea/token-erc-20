@@ -25,15 +25,17 @@ The `constructor` function set the `name`, `symbol`, `decimals` and `totalSupply
 
 The view function `balanceOf` returns the account balance of account with address `_owner`.
 
-### Transfer and transferFrom
+### Transfer
 
-The method `transfer` transfers `_value` amount of tokens to address `_to`, and fire the `Transfer` event.
+The method `transfer` is called by an account and transfers `_value` amount of tokens to other address `_to`.
 
-The method `transferFrom` allow third account transfers `_value` amount of tokens from other address `_from` to address `_to`, and fire the `Transfer` event.
+The method `transferFrom` allow one third account transfers `_value` amount of tokens from other address `_from` to other address `_to`.
+
+Both methods fire the `Transfer` event.
 
 ### Approve
 
-The method `increaseApproval` allows `_spender` to withdraw from one account multiple times, up to the `_addedValue` amount. 
+The method `increaseApproval` allows other account `_spender` to withdraw from one account multiple times, up to the `_addedValue` amount. 
 
 The method `decreaseApproval` reduces the value aprroveed to `_spender` to withdraw from one account multiple times, substracting the `_subtractedValue` to the approval amount. 
 
@@ -47,9 +49,9 @@ The view function `allowance` returns the amount which address `_spender` is sti
 
 Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
-The `mintTo` function creates `amount` tokens and assigns them to `account`, increasing the total supply.
+The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply.
 
-The `burnFrom` function destroys `amount` tokens from `account`, reducing the total supply.
+The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply.
 
 Only owner can mint or burn tokens in this case.
 
@@ -75,13 +77,12 @@ This module is used through inheritance.
 
 It will make available the modifiers `whenNotPaused` and `whenPaused`, which can be applied to the functions of your contract.
 
-Only owner can trigger call `pause` and `unpause` methods. 
+Inthis example, only owner account can trigger call `pause` and `unpause` methods. 
 
 ## Requeriments
 
 - [Node.js](https://nodejs.org/download/release/latest-v10.x/): `>=10.0.0`
 - [Truffle](https://www.trufflesuite.com/truffle): `v5.1.9`
-
 
 ## Usage
 
@@ -104,7 +105,7 @@ After running, contract information &mdash; including ABI &mdash; will be availa
 
 ### Run tests on Truffle
 
-You can run tests which can be found in the test directory(/test) runing on terminal:
+You can run tests which can be found in the test directory `/test` runing on terminal:
 
 ```sh
 truffle test
