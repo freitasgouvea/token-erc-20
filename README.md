@@ -77,9 +77,9 @@ This module is used through inheritance.
 
 It will make available the modifiers `whenNotPaused` and `whenPaused`, which can be applied to the functions of your contract.
 
-Inthis example, only owner account can trigger call `pause` and `unpause` methods. 
+In this example, only owner account can trigger call `pause` and `unpause` methods. 
 
-## Requeriments
+## Requeriments to run this repositorie
 
 - [Node.js](https://nodejs.org/download/release/latest-v10.x/): `>=10.0.0`
 - [Truffle](https://www.trufflesuite.com/truffle): `v5.1.9`
