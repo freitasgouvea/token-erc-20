@@ -27,19 +27,21 @@ The view function `balanceOf` returns the account balance of account with addres
 
 ### Transfer and transferFrom
 
-The method `transfer` transfers '_value' amount of tokens to address '_to', and fire the 'Transfer' event.
+The method `transfer` transfers `_value` amount of tokens to address `_to`, and fire the `Transfer` event.
 
-The method  `transferFrom` transfers '_value' amount of tokens from address '_from' to address '_to', and fire the 'Transfer' event.
+The method `transferFrom` allow third account transfers `_value` amount of tokens from other address `_from` to address `_to`, and fire the `Transfer` event.
 
 ### Approve
 
-The method 'approve' allows '_spender' to withdraw from one account multiple times, up to the '_value' amount. 
+The method `increaseApproval` allows `_spender` to withdraw from one account multiple times, up to the `_addedValue` amount. 
 
-If this function is called again it overwrites the current allowance with '_value'.
+The method `decreaseApproval` reduces the value aprroveed to `_spender` to withdraw from one account multiple times, substracting the `_subtractedValue` to the approval amount. 
+
+If the `_subtractedValue` is bigger than previously approved the value will reduce to 0. 
 
 ### Allowance
 
-The view function `allowance` returns the amount which address '_spender' is still allowed to withdraw from '_owner'.
+The view function `allowance` returns the amount which address `_spender` is still allowed to withdraw from `_owner`.
 
 ### Mint And Burn
 
@@ -49,7 +51,7 @@ The `mintTo` function creates `amount` tokens and assigns them to `account`, inc
 
 The `burnFrom` function destroys `amount` tokens from `account`, reducing the total supply.
 
-Only owner can mintTo or burnTo tokens in this case.
+Only owner can mint or burn tokens in this case.
 
 ## Erc-20 Modules in this example
 
