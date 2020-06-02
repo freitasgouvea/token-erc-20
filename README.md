@@ -8,8 +8,6 @@ ERC-20 is a standard interface for tokens.
 
 The following standard allows for the implementation of a standard API for tokens within smart contracts. 
 
-This standard provides basic functionality to transfer tokens, as well as allow tokens to be approved so they can be spent by another on-chain third party.E
-
 More Information about Solidity Language and ERC-20 Standard:
 
 - [Solidity](https://solidity.readthedocs.io/en/v0.6.8/): `v0.6.8`
