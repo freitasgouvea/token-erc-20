@@ -2,48 +2,101 @@ const PrivateKeyProvider = require('@truffle/hdwallet-provider');
 
 require('dotenv').config();
 
-const privateKeys = [
-    ""
-]
+const privateKey = process.env['PRIVATE_KEY'];
+const infuraProjectId = process.env['INFURA_PROJECT_ID'];
 
 module.exports = {
     networks: {
-        besu: {
-            gas: 4700000,
-            gasPrice: 0,
-            provider: () => new PrivateKeyProvider(privateKeys, 'http://127.0.0.1:8545', 0, 10),
-            network_id: '*',
-
-        },
         development: {
             host: '127.0.0.1',
             port: 8545,
             network_id: '*'
         },
         ropsten: {
-            provider: () => new PrivateKeyProvider(process.env.MNENOMIC, "https://ropsten.infura.io/v3/" + process.env.INFURA_API_KEY),
+            provider: () =>
+            new HDWalletProvider({
+              privateKeys: [privateKey],
+              providerOrUrl:
+                'https://ropsten.infura.io/v3/' + infuraProjectId,
+            }),
             network_id: 3,
-            gas: 3000000,
-            gasPrice: 10000000000
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
         },
         kovan: {
-            provider: () => new PrivateKeyProvider(process.env.MNENOMIC, "https://kovan.infura.io/v3/" + process.env.INFURA_API_KEY),
+            provider: () =>
+            new HDWalletProvider({
+              privateKeys: [privateKey],
+              providerOrUrl:
+                'https://kovan.infura.io/v3/' + infuraProjectId,
+            }),
             network_id: 42,
-            gas: 3000000,
-            gasPrice: 10000000000
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
         },
         rinkeby: {
-            provider: () => new PrivateKeyProvider(process.env.MNENOMIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
+            provider: () =>
+            new HDWalletProvider({
+              privateKeys: [privateKey],
+              providerOrUrl:
+                'https://rinkeby.infura.io/v3/' + infuraProjectId,
+            }),
             network_id: 4,
-            gas: 4000000,
-            gasPrice: 10000000000
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
         },
         main: {
-            provider: () => new PrivateKeyProvider(process.env.MNENOMIC, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
+            provider: () =>
+            new HDWalletProvider({
+              privateKeys: [privateKey],
+              providerOrUrl:
+                'https://mainnet.infura.io/v3/' + infuraProjectId,
+            }),
             network_id: 1,
-            gas: 3000000,
-            gasPrice: 10000000000
-        }
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
+        },
+        polygon: {
+            provider: () =>
+              new HDWalletProvider({
+                privateKeys: [privateKey],
+                providerOrUrl:
+                  'https://polygon-mainnet.infura.io/v3/' + infuraProjectId,
+              }),
+            network_id: 137,
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
+            chainId: 137,
+          },
+          mumbai: {
+            provider: () =>
+              new HDWalletProvider({
+                privateKeys: [privateKey],
+                providerOrUrl:
+                  'https://polygon-mumbai.infura.io/v3/' + infuraProjectId,
+              }),
+            network_id: 80001,
+            confirmations: 2,
+            timeoutBlocks: 400,
+            skipDryRun: true,
+            chainId: 80001,
+          },
+          besu: {
+            provider: () =>
+            new HDWalletProvider({
+              privateKeys: [privateKey],
+              providerOrUrl: 'http://127.0.0.1:8545'
+            }),
+            gas: 4700000,
+            gasPrice: 0,
+            network_id: '*',
+
+        },
     },
     compilers: {
         solc: {
