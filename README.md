@@ -79,6 +79,8 @@ In this example, only owner account can trigger call `pause` and `unpause` metho
 
 ## Requeriments to run this repositorie
 
+You can compile, run tests and deploy this smart contract with Truffe.
+
 - [Node.js](https://nodejs.org/download/release/latest-v10.x/): `>=10.0.0`
 - [Truffle](https://www.trufflesuite.com/truffle): `v5.1.9`
 
@@ -121,16 +123,19 @@ Create .env file on root with:
 
 ```
 PRIVATE_KEY = // Wallet private key
-INFURA_API_KEY = // Your Infura API Key after its registration
+INFURA_PROJECT_ID = // Your Infura Project Id
 TOKEN_NAME = "Token Name"
 TOKEN_SYMBOL = "ERC"
 TOKEN_DECIMALS = 18
 TOKEN_TOTALSUPLY = 0
 ```
-Run migrate command
+
+It is important that the chosen wallet has native tokens for the payment of gas.
+
+Run migrate command:
 
 ```sh
 truffle migrate --network <network_name> // mainnet, rinkeby, polygon, mumbai...
 ```
 
-Contract address and transaction ID will be shown on screen.
+After migration, contract address and transaction ID will be shown on screen.
