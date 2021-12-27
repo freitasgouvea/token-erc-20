@@ -95,6 +95,8 @@ npm install
 ```
 After running, all dependecies will be downloaded.
 
+Maybe you need install truffle as global dependency to run next steps.
+
 ### Compile contracts
 
 ```sh
