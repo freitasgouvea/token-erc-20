@@ -23,7 +23,7 @@ The `constructor` function set the `name`, `symbol`, `decimals` and `totalSupply
 
 The view function `balanceOf` returns the account balance of account with address `_owner`.
 
-### Transfer
+### Transfer and Transfer From
 
 The method `transfer` is called by an account and transfers `_value` amount of tokens to other address `_to`.
 
@@ -120,7 +120,7 @@ truffle test <file_path>
 Create .env file on root with:
 
 ```
-MNENOMIC = // Your metamask's recovery words
+PRIVATE_KEY = // Wallet private key
 INFURA_API_KEY = // Your Infura API Key after its registration
 TOKEN_NAME = "Token Name"
 TOKEN_SYMBOL = "ERC"
@@ -130,7 +130,7 @@ TOKEN_TOTALSUPLY = 0
 Run migrate command
 
 ```sh
-truffle migrate --network <network_name>
+truffle migrate --network <network_name> // mainnet, rinkeby, polygon, mumbai...
 ```
 
 Contract address and transaction ID will be shown on screen.
