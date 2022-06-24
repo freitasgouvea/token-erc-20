@@ -1,18 +1,17 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.0;
 
 import "../ownership/Ownable.sol";
 
 contract Pausable is Ownable {
 
+    bool private _paused;
+
     event Paused(address account);
     event Unpaused(address account);
 
-    bool private _paused;
-
-    modifier whenNotPaused() 
-    {
+    modifier whenNotPaused() {
         require(!_paused, "Pausable: paused");
         _;
     }
@@ -22,26 +21,16 @@ contract Pausable is Ownable {
         _;
     }
 
-    function paused(
-    ) public view returns (bool) 
-    {
+    function paused() public view returns (bool) {
         return _paused;
     }
 
-    function pause(
-    ) public 
-        onlyOwner 
-        whenNotPaused 
-    {
+    function pause() public onlyOwner whenNotPaused {
         _paused = true;
         emit Paused(msg.sender);
     }
 
-    function unpause(
-    ) public 
-        onlyOwner 
-        whenPaused 
-    {
+    function unpause() public onlyOwner whenPaused {
         _paused = false;
         emit Unpaused(msg.sender);
     }

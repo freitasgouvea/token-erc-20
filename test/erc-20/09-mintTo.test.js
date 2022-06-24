@@ -38,13 +38,6 @@ contract('ERC20-09-mintTo.test', (accounts) => {
         );
     });
 
-    it('mintTo should throw if amount is invalid', async () => {
-        await Assert.reverts(
-            contractInstance.mintTo(address1, 0, { from: ownerAddress }),
-            'ERC20: amount is not valid'
-        );
-    });
-
     it('mintTo should throw if account is not a minter', async () => {
         const mintValue = 1000;
 
@@ -58,13 +51,13 @@ contract('ERC20-09-mintTo.test', (accounts) => {
         const mintValue = 1000;
 
         const resultBeforeMint = await contractInstance.totalSupply();
-        await contractInstance.mintTo(address1, mintValue, { from: ownerAddress });
+        const mint = await contractInstance.mintTo(address1, mintValue, { from: ownerAddress });
         const expectedTotalSupply = resultBeforeMint.toNumber() + mintValue;
         const resultAfterMint = await contractInstance.totalSupply();
         const resultBalanceOf = await contractInstance.balanceOf(address1, { from: address1 });
 
-        assert.equal(tokenTotalSupply, resultBeforeMint, 'wrong totalSupply before');
         assert.equal(expectedTotalSupply, resultAfterMint, 'wrong totalSupply after');
         assert.equal(mintValue, resultBalanceOf, 'wrong balance');
+        Assert.eventEmitted(mint, 'Transfer');
     });
 });

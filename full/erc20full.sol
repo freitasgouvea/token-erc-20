@@ -2,7 +2,7 @@
 
 // File: ownership/Ownable.sol
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.0;
 
 contract Ownable {
   address private _owner;
@@ -30,7 +30,7 @@ contract Ownable {
 
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.0;
 
 
 contract Pausable is Ownable {
@@ -79,7 +79,7 @@ contract Pausable is Ownable {
 
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.0;
 
 interface IERC20 {
     function balanceOf(address who) external view returns (uint256);
@@ -92,7 +92,7 @@ interface IERC20 {
 
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.0;
 
 
 

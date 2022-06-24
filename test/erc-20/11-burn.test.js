@@ -1,7 +1,7 @@
 const Artifact = artifacts.require('../contracts/ERC20');
 const Assert = require('truffle-assertions');
 
-contract('ERC20-02-transfer.test', (accounts) => {
+contract('ERC20-10-burnFrom.test', (accounts) => {
 
     const tokenName = 'token';
     const tokenSymbol = 'TKN';
@@ -20,36 +20,38 @@ contract('ERC20-02-transfer.test', (accounts) => {
         contractInstance = await Artifact.new(tokenName, tokenSymbol, tokenDecimals, tokenTotalSupply);
     });
 
-    it('transfer should throw if contract is paused', async () => {
+    it('burn should throw if contract is paused', async () => {
+        const burnValue = 1000;
+        
         await contractInstance.pause({ from: ownerAddress });
         
         await Assert.reverts(
-            contractInstance.transfer(address1, 1000, { from: ownerAddress }),
+            contractInstance.burn(burnValue, { from: address1 }),
             'Pausable: paused'
         );
     });
 
-    it('transfer should throw if to address is not valid', async () => {
+    it('burn should throw if balance is insufficient', async () => {
         await Assert.reverts(
-            contractInstance.transfer('0x0000000000000000000000000000000000000000', 1000, { from: ownerAddress }),
-            'ERC20: to address is not valid'
-        );
-    });
-
-    it('transfer should throw if balance is insufficient', async () => {
-        await Assert.reverts(
-            contractInstance.transfer(ownerAddress, 1000, { from: address1 }),
+            contractInstance.burn(1000, { from: address1 }),
             'ERC20: insufficient balance'
         );
     });
 
-    it('transfer success', async () => {
-        const result = await contractInstance.transfer(address1, 1000, { from: ownerAddress });
+    it('burn success', async () => {
+        const mintValue = 1000;
+        const burnValue = 500;
+        const expectedBalance = 500;
 
-        const expectedBalance = 1000;
+        await contractInstance.mintTo(address1, mintValue, { from: ownerAddress });
+        const burn = await contractInstance.burn(burnValue, { from: address1 });
+
+        const expectedTotalSupply = (tokenTotalSupply + mintValue) - burnValue;
+        const resultAfterBurn = await contractInstance.totalSupply();
         const resultBalanceOf = await contractInstance.balanceOf(address1, { from: address1 });
 
-        Assert.eventEmitted(result, 'Transfer');
+        assert.equal(expectedTotalSupply, resultAfterBurn, 'wrong totalSupply after');
         assert.equal(expectedBalance, resultBalanceOf, 'wrong balance');
+        Assert.eventEmitted(burn, 'Transfer');
     });
 });
