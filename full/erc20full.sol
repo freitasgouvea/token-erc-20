@@ -1,51 +1,13 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.6.8;
+// File: ownership/Ownable.sol
 
-interface IERC20 {
-    function balanceOf(address who) external view returns (uint256);
-    function transfer(address to, uint256 value) external returns (bool);
-    function allowance(address owner, address spender) external view returns (uint256);
-    function transferFrom(address from, address to, uint256 value) external returns (bool);
-    function approve(address spender, uint256 value) external returns (bool);
-    
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-}
-
-library SafeMath {
-  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    if (a == 0) {
-      return 0;
-    }
-    uint256 c = a * b;
-    assert(c / a == b);
-    return c;
-  }
-
-  function div(uint256 a, uint256 b) internal pure returns (uint256) {
-    // assert(b > 0); // Solidity automatically throws when dividing by 0
-    uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-    return c;
-  }
-
-  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-    assert(b <= a);
-    return a - b;
-  }
-
-  function add(uint256 a, uint256 b) internal pure returns (uint256) {
-    uint256 c = a + b;
-    assert(c >= a);
-    return c;
-  }
-}
+pragma solidity ^0.8.0;
 
 contract Ownable {
   address private _owner;
 
-  constructor() public {
+  constructor() {
     _owner = msg.sender;
   }
 
@@ -64,6 +26,12 @@ contract Ownable {
     return msg.sender == _owner;
   }
 }
+// File: lifecycle/Pausable.sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+
 
 contract Pausable is Ownable {
 
@@ -82,8 +50,6 @@ contract Pausable is Ownable {
         require(_paused, "Pausable: not paused");
         _;
     }
-
-    constructor() internal {}
 
     function paused(
     ) public view returns (bool) 
@@ -109,58 +75,52 @@ contract Pausable is Ownable {
         emit Unpaused(msg.sender);
     }
 }
+// File: interfaces/IERC20.sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+
+interface IERC20 {
+    function balanceOf(address who) external view returns (uint256);
+    function transfer(address to, uint256 value) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+    function approve(address spender, uint256 value) external returns (bool);
+}
+// File: ERC20.sol
+
+//SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.8.0;
+
+
+
 
 contract ERC20 is IERC20, Ownable, Pausable {
 
-    using SafeMath for uint;
-
-    string internal _name;
-    string internal _symbol;
-    uint8 internal _decimals;
-    uint256 internal _totalSupply;
+    string public name;
+    string public symbol;
+    uint8 public decimals;
+    uint256 public totalSupply;
 
     mapping (address => uint256) internal _balances;
     mapping (address => mapping (address => uint256)) internal _allowed;
 
-    event Mint(address indexed minter, address indexed account, uint256 amount);
-    event Burn(address indexed burner, address indexed account, uint256 amount);
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
 
     constructor (
-        string memory name, 
-        string memory symbol, 
-        uint8 decimals, 
-        uint256 totalSupply
-    ) public
-    {
-        _symbol = symbol;
-        _name = name;
-        _decimals = decimals;
-        _totalSupply = totalSupply;
-        _balances[msg.sender] = totalSupply;
-    }
-
-    function name(
-    ) public view returns (string memory)
-    {
-        return _name;
-    }
-
-    function symbol(
-    ) public view returns (string memory)
-    {
-        return _symbol;
-    }
-
-    function decimals(
-    ) public view returns (uint8)
-    {
-        return _decimals;
-    }
-
-    function totalSupply(
-    ) public view returns (uint256)
-    {
-        return _totalSupply;
+        string memory _name, 
+        string memory _symbol, 
+        uint8 _decimals, 
+        uint256 _totalSupply
+    ) {
+        symbol = _symbol;
+        name = _name;
+        decimals = _decimals;
+        totalSupply = _totalSupply;
+        _balances[msg.sender] = _totalSupply;
     }
 
     function transfer(
@@ -172,9 +132,9 @@ contract ERC20 is IERC20, Ownable, Pausable {
     {
         require(_to != address(0), 'ERC20: to address is not valid');
         require(_value <= _balances[msg.sender], 'ERC20: insufficient balance');
-        
-        _balances[msg.sender] = SafeMath.sub(_balances[msg.sender], _value);
-        _balances[_to] = SafeMath.add(_balances[_to], _value);
+
+        _balances[msg.sender] = _balances[msg.sender] - _value;
+        _balances[_to] = _balances[_to] + _value;
         
         emit Transfer(msg.sender, _to, _value);
         
@@ -213,11 +173,11 @@ contract ERC20 is IERC20, Ownable, Pausable {
         require(_from != address(0), 'ERC20: from address is not valid');
         require(_to != address(0), 'ERC20: to address is not valid');
         require(_value <= _balances[_from], 'ERC20: insufficient balance');
-        require(_value <= _allowed[_from][msg.sender], 'ERC20: from not allowed');
+        require(_value <= _allowed[_from][msg.sender], 'ERC20: transfer from value not allowed');
 
-        _balances[_from] = SafeMath.sub(_balances[_from], _value);
-        _balances[_to] = SafeMath.add(_balances[_to], _value);
-        _allowed[_from][msg.sender] = SafeMath.sub(_allowed[_from][msg.sender], _value);
+        _balances[_from] = _balances[_from] - _value;
+        _balances[_to] = _balances[_to] + _value;
+        _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _value;
         
         emit Transfer(_from, _to, _value);
         
@@ -236,13 +196,13 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
     function increaseApproval(
         address _spender, 
-        uint _addedValue
+        uint256 _addedValue
     ) public
         whenNotPaused
       returns (bool)
     {
-        _allowed[msg.sender][_spender] = SafeMath.add(_allowed[msg.sender][_spender], _addedValue);
-        
+        _allowed[msg.sender][_spender] = _allowed[msg.sender][_spender] + _addedValue;
+
         emit Approval(msg.sender, _spender, _allowed[msg.sender][_spender]);
         
         return true;
@@ -250,17 +210,17 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
     function decreaseApproval(
         address _spender, 
-        uint _subtractedValue
+        uint256 _subtractedValue
     ) public
         whenNotPaused
       returns (bool) 
     {
-        uint oldValue = _allowed[msg.sender][_spender];
+        uint256 oldValue = _allowed[msg.sender][_spender];
         
         if (_subtractedValue > oldValue) {
             _allowed[msg.sender][_spender] = 0;
         } else {
-            _allowed[msg.sender][_spender] = SafeMath.sub(oldValue, _subtractedValue);
+            _allowed[msg.sender][_spender] = oldValue - _subtractedValue;
         }
         
         emit Approval(msg.sender, _spender, _allowed[msg.sender][_spender]);
@@ -274,14 +234,32 @@ contract ERC20 is IERC20, Ownable, Pausable {
     ) public
         whenNotPaused
         onlyOwner
+        returns (bool) 
     {
         require(_to != address(0), 'ERC20: to address is not valid');
-        require(_amount > 0, 'ERC20: amount is not valid');
 
-        _totalSupply = _totalSupply.add(_amount);
-        _balances[_to] = _balances[_to].add(_amount);
+        _balances[_to] = _balances[_to] + _amount;
+        totalSupply = totalSupply + _amount;
 
-        emit Mint(msg.sender, _to, _amount);
+        emit Transfer(address(0), _to, _amount);
+
+        return true;
+    }
+
+    function burn(
+        uint _amount
+    ) public
+        whenNotPaused
+        returns (bool) 
+    {
+        require(_balances[msg.sender] >= _amount, 'ERC20: insufficient balance');
+
+        _balances[msg.sender] = _balances[msg.sender] - _amount;
+        totalSupply = totalSupply - _amount;
+
+        emit Transfer(msg.sender, address(0), _amount);
+
+        return true;
     }
 
     function burnFrom(
@@ -289,15 +267,18 @@ contract ERC20 is IERC20, Ownable, Pausable {
         uint _amount
     ) public
         whenNotPaused
-        onlyOwner
+        returns (bool) 
     {
         require(_from != address(0), 'ERC20: from address is not valid');
         require(_balances[_from] >= _amount, 'ERC20: insufficient balance');
+        require(_amount <= _allowed[_from][msg.sender], 'ERC20: burn from value not allowed');
         
-        _balances[_from] = _balances[_from].sub(_amount);
-        _totalSupply = _totalSupply.sub(_amount);
+        _balances[_from] = _balances[_from] - _amount;
+        totalSupply = totalSupply - _amount;
 
-        emit Burn(msg.sender, _from, _amount);
+        emit Transfer(_from, address(0), _amount);
+
+        return true;
     }
 
 }

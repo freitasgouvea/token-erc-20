@@ -3,8 +3,8 @@ const Assert = require('truffle-assertions');
 
 contract('01-ownable.test', (accounts) => {
 
-    const tokenName = 'SPL token';
-    const tokenSymbol = 'SPL';
+    const tokenName = 'ERC token';
+    const tokenSymbol = 'ERC';
     const tokenDecimals = 18;
     const tokenTotalSupply = 1000000;
 

@@ -11,6 +11,7 @@ contract('ERC20-10-burnFrom.test', (accounts) => {
     let contractInstance;
     const ownerAddress = accounts[0];
     const address1 = accounts[1];
+    const address2 = accounts[2];
 
     before(() => {
         web3.eth.defaultAccount = ownerAddress;
@@ -45,15 +46,15 @@ contract('ERC20-10-burnFrom.test', (accounts) => {
         );
     });
 
-    it('burnFrom should throw if account is not a owner', async () => {
+    it('burnFrom should throw if account is not approved', async () => {
         const mintValue = 1000;
         const burnValue = 500;
 
         await contractInstance.mintTo(address1, mintValue, { from: ownerAddress });
-        
+
         await Assert.reverts(
-            contractInstance.burnFrom(address1, burnValue, { from: address1 }),
-            'Ownable: caller is not the owner'
+            contractInstance.burnFrom(ownerAddress, burnValue, { from: address1 }),
+            'ERC20: burn from value not allowed'
         );
     });
 
@@ -63,12 +64,15 @@ contract('ERC20-10-burnFrom.test', (accounts) => {
         const expectedBalance = 500;
 
         await contractInstance.mintTo(address1, mintValue, { from: ownerAddress });
-        await contractInstance.burnFrom(address1, burnValue, { from: ownerAddress });
+        await contractInstance.approve(address2, burnValue, { from: address1 });
+        const burn = await contractInstance.burnFrom(address1, burnValue, { from: address2 });
+
         const expectedTotalSupply = (tokenTotalSupply + mintValue) - burnValue;
         const resultAfterBurn = await contractInstance.totalSupply();
         const resultBalanceOf = await contractInstance.balanceOf(address1, { from: address1 });
 
         assert.equal(expectedTotalSupply, resultAfterBurn, 'wrong totalSupply after');
         assert.equal(expectedBalance, resultBalanceOf, 'wrong balance');
+        Assert.eventEmitted(burn, 'Transfer');
     });
 });

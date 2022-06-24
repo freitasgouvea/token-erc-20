@@ -1,11 +1,14 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.6.8;
+pragma solidity ^0.8.0;
 
 contract Ownable {
+
   address private _owner;
 
-  constructor() public {
+  event NewOwner(address oldOwner, address newOwner);
+
+  constructor() {
     _owner = msg.sender;
   }
 
@@ -14,13 +17,16 @@ contract Ownable {
     _;
   }
 
-  function owner(
-  ) public view returns (address) {
+  function owner() public view returns (address) {
     return _owner;
   }
 
-  function isOwner(
-  ) public view returns (bool) {
+  function isOwner() public view returns (bool) {
     return msg.sender == _owner;
   }
+
+  function transferOwnership(address _newOwner) public onlyOwner {
+    _owner = _newOwner;
+    emit NewOwner(msg.sender, _newOwner);
+  } 
 }
