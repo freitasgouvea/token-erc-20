@@ -1,5 +1,5 @@
 {
-  "name": "slp-token",
+  "name": "token-erc-20",
   "version": "0.1.0",
   "devDependencies": {
     "@openzeppelin/test-helpers": "github:OpenZeppelin/openzeppelin-test-helpers",
@@ -9,7 +9,7 @@
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.0.35",
     "dotenv": "^8.2.0",
-    "solc": "0.6.8",
+    "solc": "0.8.13",
     "truffle": "5.1.25",
     "truffle-deploy-registry": "0.5.1",
     "web3": "^1.2.8"

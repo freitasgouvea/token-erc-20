@@ -1,11 +1,11 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.6.8;
+pragma solidity ^0.8.13;
 
 contract Ownable {
   address private _owner;
 
-  constructor() public {
+  constructor() {
     _owner = msg.sender;
   }
 

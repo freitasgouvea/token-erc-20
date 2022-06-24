@@ -10,7 +10,7 @@ The following standard allows for the implementation of a standard API for token
 
 More Information about Solidity Language and ERC-20 Standard:
 
-- [Solidity](https://solidity.readthedocs.io/en/v0.6.8/): `v0.6.8`
+- [Solidity](https://solidity.readthedocs.io/en/v0.8.13/): `v0.8.13`
 - [ERC-20](https://eips.ethereum.org/EIPS/eip-20)
 
 ## Erc-20 Methods
@@ -21,21 +21,23 @@ The `constructor` function set the `name`, `symbol`, `decimals` and `totalSupply
 
 ### Balance
 
-The view function `balanceOf` returns the account balance of account with address `_owner`.
+The view function `balanceOf` returns the account balance of an account `_owner`.
 
 ### Transfer and Transfer From
 
 The method `transfer` is called by an account and transfers `_value` amount of tokens to other address `_to`.
 
-The method `transferFrom` allow one third account transfers `_value` amount of tokens from other address `_from` to other address `_to`.
+The method `transferFrom` allow one third account transfers `_value` amount of tokens from other address `_from` to other address `_to`.The `_from` address needs to aprrove `msg.sender` address spend the `_value` first.
 
 Both methods fire the `Transfer` event.
 
 ### Approve
 
-The method `increaseApproval` allows other account `_spender` to withdraw from one account multiple times, up to the `_addedValue` amount. 
+The method `approve` allows one account `_spender` to spend from other account `msg.sender` the `_amount`. 
 
-The method `decreaseApproval` reduces the value aprroveed to `_spender` to withdraw from one account multiple times, substracting the `_subtractedValue` to the approval amount. 
+The method `increaseApproval` allows other account `_spender` to spend from one account multiple times, adding to allowance the `_addedValue` amount. 
+
+The method `decreaseApproval` reduces the value aprroveed to `_spender` to spend from one account multiple times, substracting the `_subtractedValue` to the approval amount. 
 
 If the `_subtractedValue` is bigger than previously approved the value will reduce to 0. 
 
@@ -43,15 +45,17 @@ If the `_subtractedValue` is bigger than previously approved the value will redu
 
 The view function `allowance` returns the amount which address `_spender` is still allowed to withdraw from `_owner`.
 
-### Mint And Burn
+### Mint, Burn and Burn From
 
 Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
-The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply.
+The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply. Only owner can mint.
 
-The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply.
+The `burn` function destroys `_amount` tokens from `msg.sender`, reducing the total supply.
 
-Only owner can mint or burn tokens in this case.
+The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply. The `_from` address needs to aprrove `msg.sender` address spend the `_amount` first.
+
+Both methods fire the `Transfer` event.
 
 ## Erc-20 Modules in this example
 
@@ -119,17 +123,17 @@ Or run tests within a specific file:
 truffle test <file_path>
 ```
 
-### Run migration and deploy contracts
+### Run migration and deploy contracts with Truffle
 
 Create .env file on root with:
 
 ```
-PRIVATE_KEY = // Wallet private key
-INFURA_PROJECT_ID = // Your Infura Project Id
-TOKEN_NAME = "Token Name"
-TOKEN_SYMBOL = "ERC"
-TOKEN_DECIMALS = 18
-TOKEN_TOTALSUPLY = 0
+PRIVATE_KEY= // Wallet private key
+INFURA_PROJECT_ID= // Your Infura Project Id
+TOKEN_NAME="Token Name"
+TOKEN_SYMBOL="ERC"
+TOKEN_DECIMALS=18
+TOKEN_TOTALSUPLY=0
 ```
 
 It is important that the chosen wallet has native tokens for the payment of gas.
