@@ -25,4 +25,17 @@ contract('01-ownable.test', (accounts) => {
         assert.equal(ownerAddress, result, 'registry funder is not owner');
     });
 
+    it('transferOwnership should throw if caller is not owner', async () => { 
+        await Assert.reverts(
+            contractInstance.transferOwnership(address1, { from: address1 }),
+            'Ownable: caller is not the owner'
+        );
+    });
+
+    it('transferOwnership success', async () => {
+        await contractInstance.transferOwnership(address1, { from: ownerAddress });
+        const result = await contractInstance.owner();
+        assert.equal(address1, result, 'registry funder is not owner');
+    });
+
 });

@@ -120,7 +120,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
     function mintTo(
         address _to,
-        uint _amount
+        uint256 _amount
     ) public whenNotPaused onlyOwner returns (bool) {
         require(_to != address(0), 'ERC20: to address is not valid');
 
@@ -133,7 +133,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
     }
 
     function burn(
-        uint _amount
+        uint256 _amount
     ) public whenNotPaused returns (bool) {
         require(_balances[msg.sender] >= _amount, 'ERC20: insufficient balance');
 
@@ -147,7 +147,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
     function burnFrom(
         address _from,
-        uint _amount
+        uint256 _amount
     ) public whenNotPaused returns (bool) {
         require(_from != address(0), 'ERC20: from address is not valid');
         require(_balances[_from] >= _amount, 'ERC20: insufficient balance');
