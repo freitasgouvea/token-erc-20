@@ -35,10 +35,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
     function transfer(
         address _to, 
         uint256 _value
-    ) public override
-        whenNotPaused 
-      returns (bool)
-    {
+    ) public override whenNotPaused returns (bool) {
         require(_to != address(0), 'ERC20: to address is not valid');
         require(_value <= _balances[msg.sender], 'ERC20: insufficient balance');
 
@@ -52,18 +49,14 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
    function balanceOf(
        address _owner
-    ) public override view returns (uint256 balance) 
-    {
+    ) public override view returns (uint256 balance) {
         return _balances[_owner];
     }
 
     function approve(
        address _spender, 
        uint256 _value
-    ) public override
-        whenNotPaused
-      returns (bool) 
-    {
+    ) public override whenNotPaused returns (bool) {
         _allowed[msg.sender][_spender] = _value;
         
         emit Approval(msg.sender, _spender, _value);
@@ -75,10 +68,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
         address _from, 
         address _to, 
         uint256 _value
-    ) public override
-        whenNotPaused
-      returns (bool) 
-    {
+    ) public override whenNotPaused returns (bool) {
         require(_from != address(0), 'ERC20: from address is not valid');
         require(_to != address(0), 'ERC20: to address is not valid');
         require(_value <= _balances[_from], 'ERC20: insufficient balance');
@@ -96,20 +86,14 @@ contract ERC20 is IERC20, Ownable, Pausable {
     function allowance(
         address _owner, 
         address _spender
-    ) public override view 
-        whenNotPaused
-      returns (uint256) 
-    {
+    ) public override view whenNotPaused returns (uint256) {
         return _allowed[_owner][_spender];
     }
 
     function increaseApproval(
         address _spender, 
         uint256 _addedValue
-    ) public
-        whenNotPaused
-      returns (bool)
-    {
+    ) public whenNotPaused returns (bool) {
         _allowed[msg.sender][_spender] = _allowed[msg.sender][_spender] + _addedValue;
 
         emit Approval(msg.sender, _spender, _allowed[msg.sender][_spender]);
@@ -120,10 +104,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
     function decreaseApproval(
         address _spender, 
         uint256 _subtractedValue
-    ) public
-        whenNotPaused
-      returns (bool) 
-    {
+    ) public whenNotPaused returns (bool) {
         uint256 oldValue = _allowed[msg.sender][_spender];
         
         if (_subtractedValue > oldValue) {
@@ -140,11 +121,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
     function mintTo(
         address _to,
         uint _amount
-    ) public
-        whenNotPaused
-        onlyOwner
-        returns (bool) 
-    {
+    ) public whenNotPaused onlyOwner returns (bool) {
         require(_to != address(0), 'ERC20: to address is not valid');
 
         _balances[_to] = _balances[_to] + _amount;
@@ -157,10 +134,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
 
     function burn(
         uint _amount
-    ) public
-        whenNotPaused
-        returns (bool) 
-    {
+    ) public whenNotPaused returns (bool) {
         require(_balances[msg.sender] >= _amount, 'ERC20: insufficient balance');
 
         _balances[msg.sender] = _balances[msg.sender] - _amount;
@@ -174,10 +148,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
     function burnFrom(
         address _from,
         uint _amount
-    ) public
-        whenNotPaused
-        returns (bool) 
-    {
+    ) public whenNotPaused returns (bool) {
         require(_from != address(0), 'ERC20: from address is not valid');
         require(_balances[_from] >= _amount, 'ERC20: insufficient balance');
         require(_amount <= _allowed[_from][msg.sender], 'ERC20: burn from value not allowed');
