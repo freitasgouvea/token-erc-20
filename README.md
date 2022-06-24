@@ -1,6 +1,6 @@
 # ERC20 Token
  
-This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and module pausable.
+This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
  
 ## Erc-20
  
@@ -39,7 +39,7 @@ Both methods fire the `Transfer` event.
  
 The method `approve` allows one account - `_spender` - to spend from another account - `msg.sender` - the `_amount`.
 
-## Increase Approval and Decrease Approval
+### Increase Approval and Decrease Approval
 
 Those methods are not a ERC-20 standard but can be used to manage the allowances.
  
@@ -140,7 +140,7 @@ TOKEN_DECIMALS=18
 TOKEN_TOTALSUPLY=0
 ```
  
-It is important that the chosen wallet has native tokens for the payment of gas.
+It is important that the chosen wallet has selected network native tokens for the payment of gas.
  
 Run migrate command:
  
