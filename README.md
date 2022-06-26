@@ -301,7 +301,7 @@ The output of tests can be found in the folder `./out`.
 
 ### Deploy contracts with Foundry
 
-To deploy using foundry you can run this command setting the constructor arguments (name, symbol, decimals and totalSupply) at `--constructor-args` flag and changing the `<network_rpc_url>` of network target and `<deployer_private_key>` to execute the transaction:
+To deploy using foundry you can run this command setting the constructor arguments (name, symbol, decimals and totalSupply) at `--constructor-args` flag and changing the `<network_rpc_url>` of the target network and `<deployer_private_key>`:
 
 ```sh
 $ forge create --rpc-url <network_rpc_url> \
