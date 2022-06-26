@@ -162,7 +162,7 @@ Run deploy script:
 npx hardhat run --network <network_name> scripts/deploy.js
 ```
 
-After finishing, ERC20 contract address will be shown on screen.
+ERC20 contract address will be shown on screen.
  
 ### Verify deployed ERC-20 with Hardhat
 
@@ -298,4 +298,17 @@ forge test --debug functionToDebug
 ```
 
 The output of tests can be found in the folder `./out`.
+
+### Deploy contracts with Foundry
+
+To deploy using foundry you can run this command setting the constructor arguments (name, symbol, decimals and totalSupply) at `--constructor-args` flag and changing the `<network_rpc_url>` of network target and `<deployer_private_key>` to execute the transaction:
+
+```sh
+$ forge create --rpc-url <network_rpc_url> \
+  --constructor-args "Token Name" "ERC" 18 0 \
+  --private-key <deployer_private_key> src/ERC20.sol:ERC20 \
+  --verify
+```
+
+The hash of transaction and ERC20 contract address will be shown on screen.
 
