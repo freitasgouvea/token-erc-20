@@ -1,7 +1,7 @@
 const Artifact = artifacts.require('../contracts/ERC20');
 const Assert = require('truffle-assertions');
 
-contract('ERC20-10-burnFrom.test', (accounts) => {
+contract('ERC20-11-burn.test', (accounts) => {
 
     const tokenName = 'token';
     const tokenSymbol = 'TKN';
