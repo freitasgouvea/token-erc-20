@@ -2,16 +2,16 @@
 
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
 
-# Erc-20 smart contract implementation
+# Erc-20 implementation
 
 ERC-20 is a standard interface for tokens.
-
-The following standard allows for the implementation of a standard API for tokens within smart contracts.
 
 More Information about Solidity Language and ERC-20 Standard:
 
 - [Solidity](https://solidity.readthedocs.io/en/v0.8.0/): `v0.8.0`
 - [ERC-20](https://eips.ethereum.org/EIPS/eip-20)
+
+This repository contains an ERC-20 implementetion that can be found in `./contracts` folder.
 
 ## Erc-20 Methods
 
@@ -41,16 +41,17 @@ The method `approve` allows one account - `_spender` - to spend from another acc
  
 ### Increase Approval and Decrease Approval
  
-Those methods are not a ERC-20 standard but can be used to manage the allowances.
+Those methods are not a ERC-20 standard but can be used to manage the value of the allowances.
 
 The method `increaseApproval` allows another account - `_spender` - to spend from another account - `msg.sender` - adding to current allowance the `_addedValue` amount.
 
 The method `decreaseApproval` reduces the value approved to `_spender` to spend from another account - `msg.sender` - subtracting the `_subtractedValue` from the current approval amount. If the `_subtractedValue` is bigger than current approval the value will reduce to 0.
 
 ### Mint, Burn and Burn From
+
 Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
-The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply. Only the owner can mint.
+The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply. Only the smart contract owner can mint.
 
 The `burn` function destroys `_amount` tokens from `msg.sender`, reducing the total supply.
 
@@ -70,7 +71,7 @@ It will make available the modifier `onlyOwner`, which can be applied to smart c
 
 By default, the owner account will be the one that deploys the contract.
 
-The owner address can be changed by owner with method `transferOwnership`.
+The owner address can be changed by smart contract owner with method `transferOwnership`.
 
 ### Pausable
 
@@ -105,6 +106,7 @@ npm install
 After, all dependencies will be downloaded.
  
 ## Using Hardhat
+
 ### Compile contracts
 
 ```sh
@@ -163,7 +165,7 @@ npx hardhat run --network <network_name> scripts/deploy.js
 
 After finishing, ERC20 contract address will be shown on screen.
  
-### Verify Ethereum network deployed contracts with Hardhat
+### Verify deployed ERC-20 with Hardhat
 
 Update `.env` file with these variables:
 
@@ -179,7 +181,7 @@ Available networks <network_name>:
 - rinkeby
 - main
  
-Run deploy script:
+Run verify script:
 
 ```sh
 npx hardhat run --network <network_name> scripts/verify.js
@@ -188,6 +190,7 @@ npx hardhat run --network <network_name> scripts/verify.js
 After finishing, the link to the verified contract will be shown on screen.
  
 ## Using Truffle
+
 ### Compile contracts
 
 ```sh
@@ -244,6 +247,3 @@ truffle migrate --network <network_name>
 ```
 
 After migration, contract address and transaction ID will be shown on screen.
- 
- 
-
