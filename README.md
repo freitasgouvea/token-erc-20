@@ -85,13 +85,12 @@ In this example, only the owner account can trigger call `pause` and `unpause` m
 
 # Compile, test and deploy
 
-With this repository you can compile, run tests and deploy the ERC-20 smart contract using Hardhat or Truffle.
-
-## Requirements
+With this repository you can compile, run tests and deploy the ERC-20 smart contract using Hardhat, Truffle or Foundry.
 
 - [Node.js](https://nodejs.org/download/release/latest-v12.x/): `12.0.0`
 - [Hardhat](https://hardhat.org/): `v2.9.9`
-- [Truffle](https://www.trufflesuite.com/truffle): `v5.1.9`
+- [Truffle](https://www.trufflesuite.com/truffle): `v5.5.19`
+- [Foundry](https://getfoundry.sh/)
 
 ## Clone and Install
 
@@ -107,7 +106,7 @@ After, all dependencies will be downloaded.
  
 ## Using Hardhat
 
-### Compile contracts
+### Compile contracts using Hardhat
 
 ```sh
 npx hardhat compile
@@ -191,7 +190,7 @@ After finishing, the link to the verified contract will be shown on screen.
  
 ## Using Truffle
 
-### Compile contracts
+### Compile contracts using Truffle
 
 ```sh
 truffle compile
@@ -246,4 +245,29 @@ Run migrate command:
 truffle migrate --network <network_name>
 ```
 
-After migration, contract address and transaction ID will be shown on screen.
+After migration, contract address and transactions will be shown on screen.
+
+## Using Foundry
+
+### Install Foundry
+
+Before run you need to get Foundry:
+
+```sh
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+And install:
+
+```sh
+foundryup
+```
+
+### Compile contracts using Foundry
+
+```sh
+forge build
+```
+
+After running, contract information &mdash; including ABI &mdash; will be available at the `./out` directory.
+

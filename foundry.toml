@@ -1,0 +1,7 @@
+[default]
+src = 'contracts'
+test = 'test_foundry'
+out = 'out'
+libs = ['lib']
+optimizer = true
+optimizer_runs = 200

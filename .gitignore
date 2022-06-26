@@ -4,3 +4,4 @@ artifacts
 remix.log
 cache
 build
+out
