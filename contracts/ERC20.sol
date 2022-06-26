@@ -154,6 +154,7 @@ contract ERC20 is IERC20, Ownable, Pausable {
         require(_amount <= _allowed[_from][msg.sender], 'ERC20: burn from value not allowed');
         
         _balances[_from] = _balances[_from] - _amount;
+        _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _amount;
         totalSupply = totalSupply - _amount;
 
         emit Transfer(_from, address(0), _amount);

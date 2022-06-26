@@ -1,4 +1,4 @@
-# ERC20 Token
+# ERC-20 Token
 
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
 
@@ -270,4 +270,32 @@ forge build
 ```
 
 After running, contract information &mdash; including ABI &mdash; will be available at the `./out` directory.
+
+### Run tests using Foundry
+ 
+Before run the tests, you need to update and registry the tests modules used by this repository that can be found in `./lib` folder:
+ 
+```sh
+forge update lib/forge-std
+```
+
+So you can run tests which can be found in the file `./test-foundry/ERC20.t.sol`:
+
+```sh
+forge test
+```
+
+You also can run tests and see all detailed traces:
+
+```sh
+forge test -vvvv
+```
+
+And if you want to debug a single test, use the debug flag and set the test function name:
+
+```sh
+forge test --debug functionToDebug
+```
+
+The output of tests can be found in the folder `./out`.
 

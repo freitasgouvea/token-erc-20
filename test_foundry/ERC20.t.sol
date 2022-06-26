@@ -4,12 +4,12 @@ pragma solidity 0.8.0;
 import "forge-std/Test.sol";
 import "../contracts/ERC20.sol";
 
-contract TERC20Test is Test {
+contract ERC20Test is Test {
 
   event Transfer(address indexed from, address indexed to, uint256 value);
   event Approval(address indexed owner, address indexed spender, uint256 value);
 
-  ERC20Token private erc20;
+  ERC20 private erc20;
 
   address internal owner = vm.addr(1);
   address internal userOne = vm.addr(2);
@@ -18,15 +18,15 @@ contract TERC20Test is Test {
   address internal userFour = vm.addr(5);
   
   function setUp() public {
-    erc20 = new ERC20Token(
+    vm.startPrank(owner);
+    erc20 = new ERC20(
       "Token Name",
       "ERC",
       18,
       0
     );
-    vm.startPrank(owner);
-    erc20.mint(userOne, 1000);
-    erc20.mint(userTwo, 1000);
+    erc20.mintTo(userOne, 1000);
+    erc20.mintTo(userTwo, 1000);
     vm.stopPrank();
   }
 
@@ -36,10 +36,6 @@ contract TERC20Test is Test {
 
   function testSymbol() public {
     assertEq(erc20.symbol(), "ERC");
-  }
-
-  function testDecimals() public {
-    assertEq(erc20.decimals(), 18);
   }
 
   function testTotalSupply() public {
@@ -64,7 +60,7 @@ contract TERC20Test is Test {
 
   function testTransferWhenAmmountExceedsBalance() public {
     vm.prank(userOne);
-    vm.expectRevert(bytes("ERC20: transfer amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.transfer(userThree, 999999);
     assertEq(erc20.balanceOf(userOne), 1000);
     assertEq(erc20.balanceOf(userThree), 0);
@@ -72,7 +68,7 @@ contract TERC20Test is Test {
 
   function testTransferWhenBalanceIsZero() public {
     vm.prank(userThree);
-    vm.expectRevert(bytes("ERC20: transfer amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.transfer(userFour, 1);
     assertEq(erc20.balanceOf(userThree), 0);
     assertEq(erc20.balanceOf(userFour), 0);
@@ -80,7 +76,7 @@ contract TERC20Test is Test {
 
   function testTransferToZeroAddress() public {
     vm.prank(userOne);
-    vm.expectRevert(bytes("ERC20: transfer to the zero address"));
+    vm.expectRevert(bytes("ERC20: to address is not valid"));
     erc20.transfer(address(0), 1);
     assertEq(erc20.balanceOf(userOne), 1000);
     assertEq(erc20.balanceOf(address(0)), 0);
@@ -95,18 +91,15 @@ contract TERC20Test is Test {
     assertEq(erc20.allowance(userOne, userThree), 999999);
   }
 
-  function testApproveFromZeroAddress() public {
-    vm.prank(address(0));
-    vm.expectRevert(bytes("ERC20: approve from the zero address"));
-    erc20.approve(userOne, 1000);
-    assertEq(erc20.allowance(address(0), userOne), 0);
-  }
-
-  function testApproveToZeroAddress() public {
-    vm.prank(userOne);
-    vm.expectRevert(bytes("ERC20: approve to the zero address"));
-    erc20.approve(address(0), 1000);
-    assertEq(erc20.allowance(userOne, address(0)), 0);
+  function testUpdateApproveWithSuccess() public {
+    vm.startPrank(userOne);
+    erc20.approve(userThree, 999999);
+    vm.expectEmit(true, true, true, true);
+    emit Approval(userOne, userThree, 999);
+    erc20.approve(userThree, 999);
+    vm.stopPrank();
+    assertEq(erc20.balanceOf(userOne), 1000);
+    assertEq(erc20.allowance(userOne, userThree), 999);
   }
 
   function testTransferFromWithSuccess() public {
@@ -131,7 +124,7 @@ contract TERC20Test is Test {
     erc20.approve(userThree, 500);
     assertEq(erc20.allowance(userOne, userThree), 500);
     vm.prank(userThree);
-    vm.expectRevert(bytes("ERC20: insufficient allowance"));
+    vm.expectRevert(bytes("ERC20: transfer from value not allowed"));
     erc20.transferFrom(userOne, userFour, 1000);
     assertEq(erc20.allowance(userOne, userThree), 500);
     assertEq(erc20.balanceOf(userOne), 1000);
@@ -145,72 +138,60 @@ contract TERC20Test is Test {
     erc20.approve(userThree, 999999);
     assertEq(erc20.allowance(userOne, userThree), 999999);
     vm.prank(userThree);
-    vm.expectRevert(bytes("ERC20: transfer amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.transferFrom(userOne, userFour, 999999);
     assertEq(erc20.allowance(userOne, userThree), 999999);
     assertEq(erc20.balanceOf(userOne), 1000);
     assertEq(erc20.balanceOf(userFour), 0);
   }
 
-  function testIncreaseAllowancewWithSuccess() public {
+  function testIncreaseApprovalwWithSuccess() public {
     vm.startPrank(userOne);
     vm.expectEmit(true, true, true, true);
     emit Approval(userOne, userThree, 1000);
-    erc20.increaseAllowance(userThree, 1000);
+    erc20.increaseApproval(userThree, 1000);
     assertEq(erc20.allowance(userOne, userThree), 1000);
     vm.expectEmit(true, true, true, true);
     emit Approval(userOne, userThree, 2000);
-    erc20.increaseAllowance(userThree, 1000);
+    erc20.increaseApproval(userThree, 1000);
     assertEq(erc20.allowance(userOne, userThree), 2000);
     vm.stopPrank();
   }
 
-  function testDecreaseAllowancewWithSuccess() public {
+  function testDecreaseApprovalwWithSuccess() public {
     vm.startPrank(userOne);
     vm.expectEmit(true, true, true, true);
     emit Approval(userOne, userThree, 1000);
-    erc20.increaseAllowance(userThree, 1000);
+    erc20.increaseApproval(userThree, 1000);
     assertEq(erc20.allowance(userOne, userThree), 1000);
     vm.expectEmit(true, true, true, true);
     emit Approval(userOne, userThree, 500);
-    erc20.decreaseAllowance(userThree, 500);
+    erc20.decreaseApproval(userThree, 500);
     assertEq(erc20.allowance(userOne, userThree), 500);
     vm.stopPrank();
   }
 
-  function testDecreaseAllowancewBellowZero() public {
-    vm.startPrank(userOne);
-    vm.expectEmit(true, true, true, true);
-    emit Approval(userOne, userThree, 1000);
-    erc20.increaseAllowance(userThree, 1000);
-    assertEq(erc20.allowance(userOne, userThree), 1000);
-    vm.expectRevert(bytes("ERC20: decreased allowance below zero"));
-    erc20.decreaseAllowance(userThree, 99999);
-    assertEq(erc20.allowance(userOne, userThree), 1000);
-    vm.stopPrank();
-  }
-
-  function testMintWithSuccess() public {
+  function testMintToWithSuccess() public {
     vm.prank(owner);
     vm.expectEmit(true, true, true, true);
     emit Transfer(address(0), userThree, 1000);
-    erc20.mint(userThree, 1000);
+    erc20.mintTo(userThree, 1000);
     assertEq(erc20.balanceOf(userThree), 1000);
     assertEq(erc20.totalSupply(), 3000);
   }
 
-  function testMintWithNoAuthorization() public {
+  function testMintToWithNoAuthorization() public {
     vm.prank(userOne);
-    vm.expectRevert(bytes("UNAUTHORIZED"));
-    erc20.mint(userThree, 1000);
+    vm.expectRevert(bytes("Ownable: caller is not the owner"));
+    erc20.mintTo(userThree, 1000);
     assertEq(erc20.balanceOf(userThree), 0);
     assertEq(erc20.totalSupply(), 2000);
   }
 
-  function testMintToZeroAddress() public {
+  function testMintToToZeroAddress() public {
     vm.prank(owner);
-    vm.expectRevert(bytes("ERC20: mint to the zero address"));
-    erc20.mint(address(0), 1000);
+    vm.expectRevert(bytes("ERC20: to address is not valid"));
+    erc20.mintTo(address(0), 1000);
     assertEq(erc20.balanceOf(address(0)), 0);
     assertEq(erc20.totalSupply(), 2000);
   }
@@ -226,14 +207,14 @@ contract TERC20Test is Test {
 
   function testBurnWithZeroBalance() public {
     vm.prank(userThree);
-    vm.expectRevert(bytes("ERC20: burn amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.burn(1000);
     assertEq(erc20.balanceOf(userThree), 0);
   }
 
   function testBurnWhenAmmountExceedsBalance() public {
     vm.prank(userOne);
-    vm.expectRevert(bytes("ERC20: burn amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.burn(999999);
     assertEq(erc20.balanceOf(userOne), 1000);
   }
@@ -260,7 +241,7 @@ contract TERC20Test is Test {
     erc20.approve(userTwo, 500);
     assertEq(erc20.allowance(userOne, userTwo), 500);
     vm.prank(userTwo);
-    vm.expectRevert(stdError.arithmeticError);
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.burnFrom(userOne, 999999);
     assertEq(erc20.allowance(userOne, userTwo), 500);
     assertEq(erc20.balanceOf(userOne), 1000);
@@ -274,7 +255,7 @@ contract TERC20Test is Test {
     erc20.approve(userTwo, 999999);
     assertEq(erc20.allowance(userOne, userTwo), 999999);
     vm.prank(userTwo);
-    vm.expectRevert(bytes("ERC20: burn amount exceeds balance"));
+    vm.expectRevert(bytes("ERC20: insufficient balance"));
     erc20.burnFrom(userOne, 999999);
     assertEq(erc20.allowance(userOne, userTwo), 999999);
     assertEq(erc20.balanceOf(userOne), 1000);
