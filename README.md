@@ -88,7 +88,7 @@ With this repository you can compile, run tests and deploy the ERC-20 smart cont
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/download/release/latest-v12.x/): `>=12.0.0`
+- [Node.js](https://nodejs.org/download/release/latest-v12.x/): `12.0.0`
 - [Hardhat](https://hardhat.org/): `v2.9.9`
 - [Truffle](https://www.trufflesuite.com/truffle): `v5.1.9`
 
