@@ -2,7 +2,7 @@
 
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
 
-## Erc-20
+# Erc-20 smart contract implementation
 
 ERC-20 is a standard interface for tokens.
 
@@ -82,9 +82,11 @@ It will make available the modifiers `whenNotPaused` and `whenPaused`, which can
 
 In this example, only the owner account can trigger call `pause` and `unpause` methods.
 
-## Requirements to run this repository
+# Compile, test and deploy
 
-You can compile, run tests and deploy this smart contract with Hardhat or Truffle.
+With this repository you can compile, run tests and deploy the ERC-20 smart contract using Hardhat or Truffle.
+
+## Requirements
 
 - [Node.js](https://nodejs.org/download/release/latest-v12.x/): `>=12.0.0`
 - [Hardhat](https://hardhat.org/): `v2.9.9`
