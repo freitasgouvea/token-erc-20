@@ -3,12 +3,10 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require('@nomiclabs/hardhat-truffle5');
 require("hardhat-gas-reporter");
-// require("solidity-coverage");
 
 const privateKey = process.env['PRIVATE_KEY'];
 const infuraProjectId = process.env['INFURA_PROJECT_ID'];
 const etherscanApiKey = process.env['ETHERSCAN_API_KEY'];
-const coinmarketcapApiKey = process.env['COINMARKETCAP_API_KEY'];
 
 task("accounts", "Prints the list of accounts", async(taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
