@@ -31,7 +31,7 @@ The view function `allowance` returns the amount which address `_spender` is all
 
 The method `transfer` is called by `msg.sender` account and transfers `_value` amount of tokens to another address `_to`.
 
-The method `transferFrom` allows one third account `msg.sender` transfers `_value` amount of tokens from other address `_from` to other address `_to`. The `_from` address needs to approve `msg.sender` and spend the `_value` first.
+The method `transferFrom` allows one third account `msg.sender` transfers `_value` amount of tokens from other address `_from` to other address `_to`. The `_from` address needs to approve `msg.sender` spend the `_value` first.
 
 Both methods fire the `Transfer` event.
 
@@ -54,7 +54,7 @@ The `mintTo` function creates `_amount` tokens and assigns them to account `_to`
 
 The `burn` function destroys `_amount` tokens from `msg.sender`, reducing the total supply.
 
-The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply. The `_from` address needs to approve the `msg.sender` address and spend the `_amount` first.
+The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply. The `_from` address needs to approve the `msg.sender` address spend the `_amount` first.
 
 All these methods fire the `Transfer` event.
 
