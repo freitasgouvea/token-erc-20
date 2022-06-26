@@ -1,5 +1,4 @@
 require('dotenv').config();
-require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require('@nomiclabs/hardhat-truffle5');
 require("hardhat-gas-reporter");
