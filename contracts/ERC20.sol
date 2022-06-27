@@ -74,9 +74,9 @@ contract ERC20 is IERC20, Ownable, Pausable {
         require(_value <= _balances[_from], 'ERC20: insufficient balance');
         require(_value <= _allowed[_from][msg.sender], 'ERC20: transfer from value not allowed');
 
+        _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _value;
         _balances[_from] = _balances[_from] - _value;
         _balances[_to] = _balances[_to] + _value;
-        _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _value;
         
         emit Transfer(_from, _to, _value);
         
@@ -153,8 +153,8 @@ contract ERC20 is IERC20, Ownable, Pausable {
         require(_balances[_from] >= _amount, 'ERC20: insufficient balance');
         require(_amount <= _allowed[_from][msg.sender], 'ERC20: burn from value not allowed');
         
-        _balances[_from] = _balances[_from] - _amount;
         _allowed[_from][msg.sender] = _allowed[_from][msg.sender] - _amount;
+        _balances[_from] = _balances[_from] - _amount;
         totalSupply = totalSupply - _amount;
 
         emit Transfer(_from, address(0), _amount);

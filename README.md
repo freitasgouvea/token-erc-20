@@ -1,8 +1,8 @@
-# ERC-20 Token
+## ERC-20 Token
 
 This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
 
-# Erc-20 implementation
+## Erc-20 implementation
 
 ERC-20 is a standard interface for tokens.
 
@@ -13,21 +13,21 @@ More Information about Solidity Language and ERC-20 Standard:
 
 This repository contains an ERC-20 implementetion that can be found in `./contracts` folder.
 
-## Erc-20 Methods
+### Erc-20 Methods
 
-### Constructor
+#### Constructor
 
 The `constructor` function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
 
-### Balance
+#### Balance
 
 The view function `balanceOf` returns the account balance of an account `_owner`.
  
-### Allowance
+#### Allowance
 
 The view function `allowance` returns the amount which address `_spender` is allowed to spend from another account - `_owner`.
 
-### Transfer and Transfer From
+#### Transfer and Transfer From
 
 The method `transfer` is called by `msg.sender` account and transfers `_value` amount of tokens to another address `_to`.
 
@@ -35,11 +35,11 @@ The method `transferFrom` allows one third account `msg.sender` transfers `_valu
 
 Both methods fire the `Transfer` event.
 
-### Approve
+#### Approve
 
 The method `approve` allows one account - `_spender` - to spend from another account - `msg.sender` - the `_amount`.
  
-### Increase Approval and Decrease Approval
+#### Increase Approval and Decrease Approval
  
 Those methods are not a ERC-20 standard but can be used to manage the value of the allowances.
 
@@ -47,7 +47,7 @@ The method `increaseApproval` allows another account - `_spender` - to spend fro
 
 The method `decreaseApproval` reduces the value approved to `_spender` to spend from another account - `msg.sender` - subtracting the `_subtractedValue` from the current approval amount. If the `_subtractedValue` is bigger than current approval the value will reduce to 0.
 
-### Mint, Burn and Burn From
+#### Mint, Burn and Burn From
 
 Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
@@ -61,7 +61,7 @@ All these methods fire the `Transfer` event.
 
 ## Erc-20 Modules in this example
 
-### Ownable
+#### Ownable
 
 The Ownable module provides a basic access control mechanism, where there is an account - an owner - that has exclusive access to specific functions.
 
@@ -73,7 +73,7 @@ By default, the owner account will be the one that deploys the contract.
 
 The owner address can be changed by smart contract owner with method `transferOwnership`.
 
-### Pausable
+#### Pausable
 
 Contract module which allows children to implement an emergency stop mechanism that can be triggered by an authorized account.
 
@@ -83,7 +83,7 @@ It will make available the modifiers `whenNotPaused` and `whenPaused`, which can
 
 In this example, only the owner account can trigger call `pause` and `unpause` methods.
 
-# Compile, test and deploy
+## Compile, test and deploy
 
 With this repository you can compile, run tests and deploy the ERC-20 smart contract using Hardhat, Truffle or Foundry.
 
@@ -92,7 +92,7 @@ With this repository you can compile, run tests and deploy the ERC-20 smart cont
 - [Truffle](https://www.trufflesuite.com/truffle): `v5.5.19`
 - [Foundry](https://getfoundry.sh/)
 
-## Clone and Install
+### Clone and Install
 
 Clone or download this repository.
 
@@ -104,9 +104,9 @@ npm install
 
 After, all dependencies will be downloaded.
  
-## Using Hardhat
+### Using Hardhat
 
-### Compile contracts using Hardhat
+#### Compile contracts using Hardhat
 
 ```sh
 npx hardhat compile
@@ -114,7 +114,7 @@ npx hardhat compile
 
 After that, contract information &mdash; including ABI &mdash; will be available at the `./artifacts/contracts` directory.
 
-### Run unit tests using Hardhat
+#### Run unit tests using Hardhat
  
 To run tests on hardhat localhost, before run the tests start a local node:
  
@@ -130,7 +130,7 @@ npx hardhat --network localhost test
 
 The results of the tests and the detailed gas report will be show on screen.
 
-### Deploy contracts with Hardhat
+#### Deploy contracts with Hardhat
 
 Create `.env` file on root with these variables:
 
@@ -164,7 +164,7 @@ npx hardhat run --network <network_name> scripts/deploy.js
 
 ERC20 contract address will be shown on screen.
  
-### Verify deployed ERC-20 with Hardhat
+#### Verify deployed ERC-20 with Hardhat
 
 Update `.env` file with these variables:
 
@@ -188,9 +188,9 @@ npx hardhat run --network <network_name> scripts/verify.js
 
 After finishing, the link to the verified contract will be shown on screen.
  
-## Using Truffle
+### Using Truffle
 
-### Compile contracts using Truffle
+#### Compile contracts using Truffle
 
 ```sh
 truffle compile
@@ -198,7 +198,7 @@ truffle compile
 
 After running, contract information &mdash; including ABI &mdash; will be available at the `./build/contracts` directory.
 
-### Run unit tests using Truffle
+#### Run unit tests using Truffle
  
 To run unit tests on local network development, you need install and run before run the tests [ganache](https://trufflesuite.com/ganache/)
 
@@ -214,7 +214,7 @@ Or run tests within a specific file:
 truffle test <file_path>
 ```
 
-### Run migration and deploy contracts with Truffle
+#### Run migration and deploy contracts with Truffle
 
 Create `.env` file on root with:
 
@@ -247,9 +247,9 @@ truffle migrate --network <network_name>
 
 After migration, contract address and transactions will be shown on screen.
 
-## Using Foundry
+### Using Foundry
 
-### Install Foundry
+#### Install Foundry
 
 Before run you need to get Foundry:
 
@@ -263,7 +263,7 @@ And install:
 foundryup
 ```
 
-### Compile contracts using Foundry
+#### Compile contracts using Foundry
 
 ```sh
 forge build
@@ -271,7 +271,7 @@ forge build
 
 After running, contract information &mdash; including ABI &mdash; will be available at the `./out` directory.
 
-### Run tests using Foundry
+#### Run tests using Foundry
  
 Before run the tests, you need to update and registry the tests modules used by this repository that can be found in `./lib` folder:
  
@@ -299,12 +299,12 @@ forge test --debug functionToDebug
 
 The output of tests can be found in the folder `./out`.
 
-### Deploy contracts with Foundry
+#### Deploy contracts with Foundry
 
 To deploy using foundry you can run this command setting the constructor arguments (name, symbol, decimals and totalSupply) at `--constructor-args` flag and changing the `<network_rpc_url>` of the target network and `<deployer_private_key>`:
 
 ```sh
-$ forge create --rpc-url <network_rpc_url> \
+forge create --rpc-url <network_rpc_url> \
   --constructor-args "Token Name" "ERC" 18 0 \
   --private-key <deployer_private_key> src/ERC20.sol:ERC20 \
   --verify
@@ -312,3 +312,34 @@ $ forge create --rpc-url <network_rpc_url> \
 
 The hash of transaction and ERC20 contract address will be shown on screen.
 
+## Security analysis using Mythril
+
+Mythril is a free security analysis tool for EVM bytecode that detects security vulnerabilities in smart contracts:
+
+- [Mythril](https://github.com/ConsenSys/mythril)
+
+Below you find the instructions to run Mythril in this project.
+
+#### Run sucurity analysis using Mythril
+
+To run a security analysis you first need to install the Mythril tool in your machine:
+
+```sh
+pip3 install mythril
+```
+
+Then, you can run the `ERC20.sol` smart contract security scan:
+
+```sh
+myth analyze contracts/ERC20.sol -o jsonv2
+```
+
+The analysis may take several minutes to finish and the JSON output will be generated.
+
+#### Result of Mythril analysis of the smart contracts of this project
+
+No issues was identified in this repository and the output of analysis was:
+
+```sh
+[{"issues": [], "meta": {"mythril_execution_info": {"analysis_duration": 3081529196262}}, "sourceFormat": "text", "sourceList": ["#utility.yul", "contracts/ERC20.sol", "contracts/interfaces/IERC20.sol", "contracts/lifecycle/Pausable.sol", "contracts/ownership/Ownable.sol"], "sourceType": "solidity-file"}]
+```
