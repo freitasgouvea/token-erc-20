@@ -1,15 +1,15 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.0;
+pragma solidity 0.8.0;
 
 contract Ownable {
 
-  address private _owner;
+  address private owner;
 
   event NewOwner(address oldOwner, address newOwner);
 
   constructor() {
-    _owner = msg.sender;
+    owner = msg.sender;
   }
 
   modifier onlyOwner() {
@@ -17,16 +17,17 @@ contract Ownable {
     _;
   }
 
-  function owner() public view returns (address) {
-    return _owner;
+  function contractOwner() external view returns (address) {
+    return owner;
   }
 
   function isOwner() public view returns (bool) {
-    return msg.sender == _owner;
+    return msg.sender == owner;
   }
 
-  function transferOwnership(address _newOwner) public onlyOwner {
-    _owner = _newOwner;
+  function transferOwnership(address _newOwner) external onlyOwner {
+    require(_newOwner != address(0), 'Ownable: address is not valid');
+    owner = _newOwner;
     emit NewOwner(msg.sender, _newOwner);
   } 
 }

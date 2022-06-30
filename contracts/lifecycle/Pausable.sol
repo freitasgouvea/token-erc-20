@@ -1,6 +1,6 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.0;
+pragma solidity 0.8.0;
 
 import "../ownership/Ownable.sol";
 
@@ -21,16 +21,16 @@ contract Pausable is Ownable {
         _;
     }
 
-    function paused() public view returns (bool) {
+    function paused() external view returns (bool) {
         return _paused;
     }
 
-    function pause() public onlyOwner whenNotPaused {
+    function pause() external onlyOwner whenNotPaused {
         _paused = true;
         emit Paused(msg.sender);
     }
 
-    function unpause() public onlyOwner whenPaused {
+    function unpause() external onlyOwner whenPaused {
         _paused = false;
         emit Unpaused(msg.sender);
     }
