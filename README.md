@@ -1,12 +1,10 @@
 ## ERC-20 Token
 
-This is an example in solidity language of an implementation of ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
-
-In this repository you can:
+This is an example in solidity language of an implementation of ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module. In this repository you can:
 
 - Learn an implementation of ERC-20 standard Ethereum Token in Solidity language
 - Deploy an ERC-20 in different networks using Hardhat, Truffle and Foundry
-- Test the ERC-20 smart contracts using Hardhat,Truffle and Foundry
+- Run tests on ERC-20 smart contracts using Hardhat, Truffle and Foundry
 - Run a code analysis using Mythril and Slither
 
 ## Erc-20 implementation
