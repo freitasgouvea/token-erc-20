@@ -4,7 +4,7 @@ require('@nomiclabs/hardhat-truffle5');
 require("hardhat-gas-reporter");
 
 const privateKey = process.env['PRIVATE_KEY'];
-const infuraProjectId = process.env['INFURA_PROJECT_ID'];
+const alchemyKey = process.env['ALCHEMY_KEY'];
 const etherscanApiKey = process.env['ETHERSCAN_API_KEY'];
 
 task("accounts", "Prints the list of accounts", async(taskArgs, hre) => {
@@ -22,33 +22,28 @@ module.exports = {
       url: 'http://127.0.0.1:7545',
       port: 7545,
     },
-    ropsten: {
-      url: 'https://ropsten.infura.io/v3/' + infuraProjectId,
-      accounts: [privateKey],
-      chainId: 3,
-    },
-    kovan: {
-      url: 'https://kovan.infura.io/v3/' + infuraProjectId,
-      accounts: [privateKey],
-      chainId: 42,
-    },
-    rinkeby: {
-      url: 'https://rinkeby.infura.io/v3/' + infuraProjectId,
-      accounts: [privateKey],
-      chainId: 4,
-    },
     main: {
-      url: 'https://mainnet.infura.io/v3/' + infuraProjectId,
+      url: 'https://eth-mainnet.g.alchemy.com/v2/' + alchemyKey,
       accounts: [privateKey],
       chainId: 1,
     },
+    goerli: {
+      url: 'https://eth-goerli.g.alchemy.com/v2/' + alchemyKey,
+      accounts: [privateKey],
+      chainId: 5,
+    },
+    sepolia: {
+      url: 'https://eth-sepolia.g.alchemy.com/v2/' + alchemyKey,
+      accounts: [privateKey],
+      chainId: 11155111,
+    },
     polygon: {
-      url: 'https://polygon-mainnet.infura.io/v3/' + infuraProjectId,
+      url: 'https://polygon-mumbai.g.alchemy.com/v2/' + alchemyKey,
       accounts: [privateKey],
       chainId: 137,
     },
     mumbai: {
-      url: 'https://polygon-mumbai.infura.io/v3/' + infuraProjectId,
+      url: 'https://polygon-mumbai.g.alchemy.com/v2/' + alchemyKey,
       accounts: [privateKey],
       chainId: 80001,
     },

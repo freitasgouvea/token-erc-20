@@ -1,6 +1,6 @@
 ## ERC-20 Token
 
-This is an example in solidity language of an ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
+This is an example in solidity language of an implementation of ERC-20 standard Ethereum Token, mintable and burnable, with owner access permissions and pausable module.
 
 ## Erc-20 implementation
 
@@ -130,27 +130,27 @@ npx hardhat --network localhost test
 
 The results of the tests and the detailed gas report will be show on screen.
 
-#### Deploy contracts with Hardhat
+#### Deploy contracts with Hardhat and Alchemy as Provider
 
 Create `.env` file on root with these variables:
 
 ```
 PRIVATE_KEY= // Wallet private key
-INFURA_PROJECT_ID= // Your Infura Project Id
+ALCHEMY_KEY= // Your Alchemy key from the choosen network
 TOKEN_NAME="Token Name"
 TOKEN_SYMBOL="ERC"
 TOKEN_DECIMALS=18
 TOKEN_TOTALSUPLY=0
+ETHERSCAN_API_KEY= // Your Etherscan API key to verify contracts
+ERC20_ADDRESS= // The address of deployed ERC20 to be verified
 ```
  
 Available networks <network_name>:
  
 - localhost
-- development
-- ropsten
-- kovan
-- rinkeby
-- main
+- mainnet
+- goerli
+- sepolia
 - polygon
 - mumbai
  
@@ -175,10 +175,10 @@ ERC20_ADDRESS= // The address of deployed ERC20 to be verified
  
 Available networks <network_name>:
  
-- ropsten
-- kovan
-- rinkeby
-- main
+- localhost
+- mainnet
+- goerli
+- sepolia
  
 Run verify script:
 
@@ -190,7 +190,7 @@ After finishing, the link to the verified contract will be shown on screen.
  
 ### Using Truffle
 
-#### Compile contracts using Truffle
+#### Compile contracts using Truffle and Infura as Provider
 
 ```sh
 truffle compile
