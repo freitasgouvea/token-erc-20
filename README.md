@@ -137,7 +137,7 @@ npx hardhat --network localhost test
 
 The results of the tests and the detailed gas report will be show on screen.
 
-#### Deploy contracts with Hardhat and Alchemy as Provider
+#### Deploy contracts with Hardhat and [Alchemy](https://www.alchemy.com/) as Provider
 
 Create `.env` file on root with these variables:
 
