@@ -132,6 +132,17 @@ The results of the tests and the detailed gas report will be show on screen.
 
 #### Deploy contracts with Hardhat and Alchemy as Provider
 
+Available networks <network_name>:
+ 
+- localhost
+- mainnet
+- goerli
+- sepolia
+- polygon
+- mumbai
+ 
+It is important that the chosen wallet has selected network native tokens for the payment of gas.
+
 Create `.env` file on root with these variables:
 
 ```
@@ -145,17 +156,6 @@ ETHERSCAN_API_KEY= // Your Etherscan API key to verify contracts
 ERC20_ADDRESS= // The address of deployed ERC20 to be verified
 ```
  
-Available networks <network_name>:
- 
-- localhost
-- mainnet
-- goerli
-- sepolia
-- polygon
-- mumbai
- 
-It is important that the chosen wallet has selected network native tokens for the payment of gas.
- 
 Run deploy script:
 
 ```sh
@@ -166,19 +166,19 @@ ERC20 contract address will be shown on screen.
  
 #### Verify deployed ERC-20 with Hardhat
 
-Update `.env` file with these variables:
-
-```
-ETHERSCAN_API_KEY= // Your Etherscan API key
-ERC20_ADDRESS= // The address of deployed ERC20 to be verified
-```
- 
 Available networks <network_name>:
  
 - localhost
 - mainnet
 - goerli
 - sepolia
+
+Update `.env` file with these variables:
+
+```
+ETHERSCAN_API_KEY= // Your Etherscan API key
+ERC20_ADDRESS= // The address of deployed ERC20 to be verified
+```
  
 Run verify script:
 
@@ -216,6 +216,16 @@ truffle test <file_path>
 
 #### Run migration and deploy contracts with Truffle
 
+Available networks <network_name>:
+ 
+- development
+- ropsten
+- kovan
+- rinkeby
+- main
+- polygon
+- mumbai
+
 Create `.env` file on root with:
 
 ```
@@ -226,16 +236,6 @@ TOKEN_SYMBOL="ERC"
 TOKEN_DECIMALS=18
 TOKEN_TOTALSUPLY=0
 ```
- 
-Available networks <network_name>:
- 
-- development
-- ropsten
-- kovan
-- rinkeby
-- main
-- polygon
-- mumbai
  
 It is important that the chosen wallet has selected network native tokens for the payment of gas.
  
