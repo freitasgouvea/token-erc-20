@@ -7,7 +7,7 @@ const infuraProjectId = process.env['INFURA_PROJECT_ID'];
 
 module.exports = {
   networks: {
-    development: {
+    localhost: {
       host: '127.0.0.1',
       port: 7545,
       network_id: '*'

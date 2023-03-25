@@ -238,7 +238,7 @@ It is important that the chosen wallet has selected network native tokens for th
 
 Available networks <network_name>:
  
-- development
+- localhost
 - ropsten
 - kovan
 - rinkeby

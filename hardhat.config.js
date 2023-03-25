@@ -16,9 +16,9 @@ task("accounts", "Prints the list of accounts", async(taskArgs, hre) => {
 });
 
 module.exports = {
-  defaultNetwork: "development",
+  defaultNetwork: "localhost",
   networks: {
-    development: {
+    localhost: {
       url: 'http://127.0.0.1:7545',
       port: 7545,
     },
