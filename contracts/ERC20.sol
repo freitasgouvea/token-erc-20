@@ -6,6 +6,10 @@ import './interfaces/IERC20.sol';
 import "./ownership/Ownable.sol";
 import "./lifecycle/Pausable.sol";
 
+/**
+ * @title ERC20 Token
+ * @dev Implementation of the basic ERC-20 standard token with burn and mint functions.
+ */
 contract ERC20 is IERC20, Ownable, Pausable {
 
     string public name;
@@ -19,6 +23,13 @@ contract ERC20 is IERC20, Ownable, Pausable {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
+    /**
+     * @dev Constructor that gives msg.sender all of existing tokens.
+     * @param _name The name of the token.
+     * @param _symbol The symbol of the token.
+     * @param _decimals The number of decimals of the token.
+     * @param _totalSupply The total supply of the token.
+     */
     constructor (
         string memory _name, 
         string memory _symbol, 
@@ -32,6 +43,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         _balances[msg.sender] = _totalSupply;
     }
 
+    /**
+     * @dev Transfer token for a specified address.
+     * @param _to The address to transfer to.
+     * @param _value The amount to be transferred.
+     * @return A boolean that indicates if the operation was successful.
+     */
     function transfer(
         address _to, 
         uint256 _value
@@ -47,12 +64,23 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
     }
 
+    /**
+    * @dev Gets the balance of the specified address.
+    * @param _owner The address to query the balance of.
+    * @return balance An uint256 representing the balance
+    */
    function balanceOf(
        address _owner
     ) external override view returns (uint256 balance) {
         return _balances[_owner];
     }
 
+    /**
+     * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
+     * @param _spender The address which will spend the funds.
+     * @param _value The amount of tokens to be spent.
+     * @return A boolean that indicates if the operation was successful.
+     */
     function approve(
        address _spender, 
        uint256 _value
@@ -64,6 +92,13 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
    }
 
+      /**
+    * @dev Transfer tokens from one address to another.
+    * @param _from The address which you want to send tokens from.
+    * @param _to The address which you want to transfer to.
+    * @param _value The amount of tokens to be transferred.
+    * @return A boolean that indicates if the operation was successful
+    */
    function transferFrom(
         address _from, 
         address _to, 
@@ -83,6 +118,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
    }
 
+    /**
+     * @dev Returns the amount of tokens approved by the owner that can be transferred to the spender's account.
+     * @param _owner The address of the owner of the tokens.
+     * @param _spender The address of the spender.
+     * @return The number of tokens approved.
+     */
     function allowance(
         address _owner, 
         address _spender
@@ -90,6 +131,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return _allowed[_owner][_spender];
     }
 
+    /**
+     * @dev Increases the amount of tokens that an owner has allowed to a spender.
+     * @param _spender The address of the spender.
+     * @param _addedValue The amount of tokens to increase the allowance by.
+     * @return A boolean value indicating whether the operation succeeded.
+     */
     function increaseApproval(
         address _spender, 
         uint256 _addedValue
@@ -101,6 +148,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
     }
 
+    /**
+     * @dev Decreases the amount of tokens that an owner has allowed to a spender.
+     * @param _spender The address of the spender.
+     * @param _subtractedValue The amount of tokens to decrease the allowance by.
+     * @return A boolean value indicating whether the operation succeeded.
+     */
     function decreaseApproval(
         address _spender, 
         uint256 _subtractedValue
@@ -118,6 +171,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
    }
 
+    /**
+     * @dev Creates new tokens and assigns them to an address.
+     * @param _to The address to which the tokens will be minted.
+     * @param _amount The amount of tokens to be minted.
+     * @return A boolean value indicating whether the operation succeeded.
+     */
     function mintTo(
         address _to,
         uint256 _amount
@@ -132,6 +191,11 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
     }
 
+    /**
+     * @dev Burn tokens from the sender's account.
+     * @param _amount The amount of tokens to burn.
+     * @return A boolean indicating whether the operation succeeded.
+     */
     function burn(
         uint256 _amount
     ) external whenNotPaused returns (bool) {
@@ -145,6 +209,12 @@ contract ERC20 is IERC20, Ownable, Pausable {
         return true;
     }
 
+    /**
+     * @dev Burn tokens from a specified account, subject to allowance.
+     * @param _from The address whose tokens will be burned.
+     * @param _amount The amount of tokens to burn.
+     * @return A boolean indicating whether the operation succeeded.
+     */
     function burnFrom(
         address _from,
         uint256 _amount
