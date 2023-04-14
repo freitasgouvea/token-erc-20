@@ -21,7 +21,7 @@ contract('01-ownable.test', (accounts) => {
     });
 
     it('registry funder must be owner before deploy', async () => {
-        const result = await contractInstance.owner();
+        const result = await contractInstance.contractOwner();
         assert.equal(ownerAddress, result, 'registry funder is not owner');
     });
 
@@ -34,7 +34,7 @@ contract('01-ownable.test', (accounts) => {
 
     it('transferOwnership success', async () => {
         await contractInstance.transferOwnership(address1, { from: ownerAddress });
-        const result = await contractInstance.owner();
+        const result = await contractInstance.contractOwner();
         assert.equal(address1, result, 'registry funder is not owner');
     });
 

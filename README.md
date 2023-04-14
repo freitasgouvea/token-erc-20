@@ -15,7 +15,7 @@ ERC-20 is a standard interface for tokens.
 
 More Information about Solidity Language and ERC-20 Standard:
 
-- [Solidity](https://solidity.readthedocs.io/en/v0.8.0/): `v0.8.0`
+- [Solidity](https://solidity.readthedocs.io/en/v0.8.4/): `v0.8.4`
 - [ERC-20](https://eips.ethereum.org/EIPS/eip-20)
 
 This repository contains an ERC-20 implementetion that can be found in `./contracts` folder.

@@ -12,7 +12,7 @@
     "dotenv": "^16.0.1",
     "hardhat": "^2.9.9",
     "hardhat-gas-reporter": "^1.0.8",
-    "solc": "0.8.0",
+    "solc": "0.8.4",
     "truffle": "^5.5.19",
     "web3": "^1.7.4"
   }
