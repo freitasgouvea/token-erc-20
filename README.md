@@ -26,45 +26,45 @@ This repository contains an ERC-20 implementetion that can be found in `./contra
 
 #### Constructor
 
-The [`constructor`](./contracts/erc20.sol) function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
+The [`constructor`](./contracts/ERC20.sol#L33) function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
 
 #### Balance
 
-The view function `balanceOf` returns the account balance of an account `_owner`.
+The view function [`balanceOf`](./contracts/ERC20.sol#L45) returns the account balance of an account `_owner`.
  
 #### Allowance
 
-The view function `allowance` returns the amount which address `_spender` is allowed to spend from another account - `_owner`.
+The view function [`allowance`](./contracts/ERC20.sol#L57) returns the amount which address `_spender` is allowed to spend from another account - `_owner`.
 
 #### Transfer and Transfer From
 
-The method `transfer` is called by `msg.sender` account and transfers `_value` amount of tokens to another address `_to`.
+The method  [`transfer`](./contracts/ERC20.sol#L69) is called by `msg.sender` account and transfers `_value` amount of tokens to another address `_to`.
 
-The method `transferFrom` allows one third account `msg.sender` transfers `_value` amount of tokens from other address `_from` to other address `_to`. The `_from` address needs to approve `msg.sender` spend the `_value` first.
+The method [`transferFrom`](./contracts/ERC20.sol#L81) allows one third account `msg.sender` transfers `_value` amount of tokens from other address `_from` to other address `_to`. The `_from` address needs to approve `msg.sender` spend the `_value` first.
 
 Both methods fire the `Transfer` event.
 
 #### Approve
 
-The method `approve` allows one account - `_spender` - to spend from another account - `msg.sender` - the `_amount`.
+The method [`approve`](./contracts/ERC20.sol#L93) allows one account - `_spender` - to spend from another account - `msg.sender` - the `_amount`.
  
 #### Increase Approval and Decrease Approval
  
 Those methods are not a ERC-20 standard but can be used to manage the value of the allowances.
 
-The method `increaseApproval` allows another account - `_spender` - to spend from another account - `msg.sender` - adding to current allowance the `_addedValue` amount.
+The method [`increaseApproval`](./contracts/ERC20.sol#L105) allows another account - `_spender` - to spend from another account - `msg.sender` - adding to current allowance the `_addedValue` amount.
 
-The method `decreaseApproval` reduces the value approved to `_spender` to spend from another account - `msg.sender` - subtracting the `_subtractedValue` from the current approval amount. If the `_subtractedValue` is bigger than current approval the value will reduce to 0.
+The method [`decreaseApproval`](./contracts/ERC20.sol#L118) reduces the value approved to `_spender` to spend from another account - `msg.sender` - subtracting the `_subtractedValue` from the current approval amount. If the `_subtractedValue` is bigger than current approval the value will reduce to 0.
 
 #### Mint, Burn and Burn From
 
 Those methods are not a ERC-20 standard but are commonly used to create and destroy tokens.
 
-The `mintTo` function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply. Only the smart contract owner can mint.
+The [`mintTo`](./contracts/ERC20.sol#L131) function creates `_amount` tokens and assigns them to account `_to`, increasing the total supply. Only the smart contract owner can mint.
 
-The `burn` function destroys `_amount` tokens from `msg.sender`, reducing the total supply.
+The [`burn`](./contracts/ERC20.sol#L144) function destroys `_amount` tokens from `msg.sender`, reducing the total supply.
 
-The `burnFrom` function destroys `_amount` tokens from account `_from`, reducing the total supply. The `_from` address needs to approve the `msg.sender` address spend the `_amount` first.
+The [`burnFrom`](./contracts/ERC20.sol#L156) function destroys `_amount` tokens from account `_from`, reducing the total supply. The `_from` address needs to approve the `msg.sender` address spend the `_amount` first.
 
 All these methods fire the `Transfer` event.
 
@@ -72,7 +72,7 @@ All these methods fire the `Transfer` event.
 
 #### Ownable
 
-The Ownable module provides a basic access control mechanism, where there is an account - an owner - that has exclusive access to specific functions.
+The [`ownable`](./contracts/ownership/Ownable.sol) smart contract module provides a basic access control mechanism, where there is an account - an owner - that has exclusive access to specific functions.
 
 This module is used through inheritance.
 
@@ -84,7 +84,7 @@ The owner address can be changed by smart contract owner with method `transferOw
 
 #### Pausable
 
-Contract module which allows children to implement an emergency stop mechanism that can be triggered by an authorized account.
+The [`Pausable`](./contracts/lifecycle/Pausable.sol) module is smart contract which allows children to implement an emergency stop mechanism that can be triggered by an authorized account.
 
 This module is used through inheritance.
 
