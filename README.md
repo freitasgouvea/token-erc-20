@@ -26,7 +26,7 @@ This repository contains an ERC-20 implementetion that can be found in `./contra
 
 #### Constructor
 
-The [`constructor`](./contracts/constructor) function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
+The [`constructor`](./contracts/erc20.sol) function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
 
 #### Balance
 
