@@ -20,7 +20,7 @@ More Information about Solidity Language and ERC-20 Standard:
 - [Solidity](https://solidity.readthedocs.io/en/v0.8.4/): `v0.8.4`
 - [ERC-20](https://eips.ethereum.org/EIPS/eip-20)
 
-This repository contains an ERC-20 implementetion that can be found in `./contracts` folder.
+This repository contains an [`ERC-20`](./contracts/ERC20.sol) smart contract implementetion that can be found in `./contracts` folder.
 
 ### Erc-20 Methods
 
