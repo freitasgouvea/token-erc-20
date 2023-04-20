@@ -50,7 +50,7 @@ The method [`approve`](./contracts/ERC20.sol#L84) allows one account - `_spender
  
 #### Increase Approval and Decrease Approval
  
-Those methods are not a ERC-20 standard but can be used to manage the value of the allowances.
+Those methods are not a ERC-20 standard but can be used to manage the value of the account allowances.
 
 The method [`increaseApproval`](./contracts/ERC20.sol#L140) allows another account - `_spender` - to spend from another account - `msg.sender` - adding to current allowance the `_addedValue` amount.
 
