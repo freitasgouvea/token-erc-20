@@ -11,7 +11,9 @@ In this repository you can:
 
 ## Erc-20 implementation
 
-ERC-20 is a standard interface for tokens.
+This smart contract is an implementation of the ERC20 token standard in the Solidity programming language.
+
+ERC-20 is a standard interface for tokens widely used standard for creating fungible tokens, which are tokens that are interchangeable and have a uniform value.
 
 More Information about Solidity Language and ERC-20 Standard:
 
@@ -24,7 +26,7 @@ This repository contains an ERC-20 implementetion that can be found in `./contra
 
 #### Constructor
 
-The `constructor` function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
+The [`constructor`](./contracts/constructor) function sets `name`, `symbol`, `decimals` and `totalSupply` of the token.
 
 #### Balance
 
