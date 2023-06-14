@@ -322,7 +322,7 @@ The hash of transaction and ERC20 contract address will be shown on screen.
 
 ## Other Features
 
-#### Run analysis using Mythril
+### Run analysis using Mythril
 
 Mythril is example of security analysis tool for EVM bytecode that detects security vulnerabilities in smart contracts:
 
