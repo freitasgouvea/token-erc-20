@@ -322,15 +322,11 @@ The hash of transaction and ERC20 contract address will be shown on screen.
 
 ## Other Features
 
-### Security analysis using Mythril
+#### Run analysis using Mythril
 
-Mythril is a free security analysis tool for EVM bytecode that detects security vulnerabilities in smart contracts:
+Mythril is example of security analysis tool for EVM bytecode that detects security vulnerabilities in smart contracts:
 
 - [Mythril](https://github.com/ConsenSys/mythril)
-
-Below you find the instructions to run Mythril in this project.
-
-#### Run analysis using Mythril
 
 To run a security analysis you first need to install the Mythril tool in your machine:
 
@@ -354,14 +350,11 @@ No issues was identified in this repository and the output of analysis was:
 [{"issues": [], "meta": {"mythril_execution_info": {"analysis_duration": 3081529196262}}, "sourceFormat": "text", "sourceList": ["#utility.yul", "contracts/ERC20.sol", "contracts/interfaces/IERC20.sol", "contracts/lifecycle/Pausable.sol", "contracts/ownership/Ownable.sol"], "sourceType": "solidity-file"}]
 ```
 
-### Run  using Slither
+### Run analysis using Slither
 
-Slither is a free analysis tool that detects vulnerabilities and suggests optimizations in solidity smart contracts:
+Slither is a example of analysis tool that detects vulnerabilities and suggests optimizations in solidity smart contracts:
 
 - [Slither](https://github.com/crytic/slither)
-
-Below you find the instructions to run Slither in this project.
-#### Run analysis using Slither
 
 To run Slither you first need to install the tool in your machine:
 
