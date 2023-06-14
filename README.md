@@ -299,7 +299,7 @@ You also can run tests and see all detailed traces:
 forge test -vvvv
 ```
 
-And if you want to debug a single test, use the debug flag and set the test function name:
+And if you want to debug a single test, and see the execution of EVM opcodes, use the debug flag and set the test function name:
 
 ```sh
 forge test --debug functionToDebug
