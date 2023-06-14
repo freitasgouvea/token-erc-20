@@ -7,7 +7,6 @@ In this repository you can:
 - Learn an implementation of ERC-20 standard Ethereum Token in Solidity language
 - Deploy an ERC-20 in different networks using Hardhat, Truffle and Foundry
 - Run tests on ERC-20 smart contracts using Hardhat, Truffle and Foundry
-- Run a code analysis using Mythril and Slither
 
 ## Erc-20 implementation
 
@@ -321,7 +320,9 @@ forge create --rpc-url <network_rpc_url> \
 
 The hash of transaction and ERC20 contract address will be shown on screen.
 
-## Security analysis using Mythril
+## Other Features
+
+### Security analysis using Mythril
 
 Mythril is a free security analysis tool for EVM bytecode that detects security vulnerabilities in smart contracts:
 
@@ -353,7 +354,7 @@ No issues was identified in this repository and the output of analysis was:
 [{"issues": [], "meta": {"mythril_execution_info": {"analysis_duration": 3081529196262}}, "sourceFormat": "text", "sourceList": ["#utility.yul", "contracts/ERC20.sol", "contracts/interfaces/IERC20.sol", "contracts/lifecycle/Pausable.sol", "contracts/ownership/Ownable.sol"], "sourceType": "solidity-file"}]
 ```
 
-## Code and security analysis using Slither
+### Run  using Slither
 
 Slither is a free analysis tool that detects vulnerabilities and suggests optimizations in solidity smart contracts:
 
